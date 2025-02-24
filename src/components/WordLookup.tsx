@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
-import { getWord } from '@/app/actions';
+import { getWord } from '@/lib/actions';
 import type { FormEvent } from 'react';
 import type { WordInfoType } from '@/types/wiktionary';
 
