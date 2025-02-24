@@ -1,93 +1,53 @@
 import { type Section } from 'mwn/build/wikitext';
-import type {
-  IPAType,
-  LanguageSectionType
-} from '@/types/wiktionary';
+import type { IPAType } from '@/types/wiktionary';
 
-interface SectionWithLanguage extends Section {
-  language: string;
-}
-
-// TODO: Filter by language
-export function groupByLanguage(
-  sections: SectionWithLanguage[]
-): Record<string, LanguageSectionType> {
-  const languageSections: Record<string, LanguageSectionType> = {};
-
-  sections.forEach((section) => {
-    // Section Level 2 is always a language section
-    if (section.level === 2) {
-      // Initialize language section
-      initializeLanguageSection(languageSections, section.header || '');
-    } else if (section.level > 2 && section.language) {
-      // Initialize if not exists
-      initializeLanguageSection(languageSections, section.language);
-
-      // Process section based on type
-      processSectionContent(
-        languageSections[section.language],
-        section,
-        section.header?.toLowerCase() ?? ''
-      );
-    }
-  });
-
-  return languageSections;
-}
-
-export function formatLanguageSections(
-  languageSections: Record<string, LanguageSectionType>
-): Record<string, LanguageSectionType> {
-  const filteredSections = Object.entries(languageSections).filter(
-    ([, data]) =>
-      data.etymology ||
-      data.ipa ||
-      data.definitions.length > 0 ||
-      Object.keys(data.related).length > 0
+export function extractPronunciation(
+  sections: Section[],
+  targetLanguage: string
+): IPAType[] | null {
+  // Find the language section first
+  const languageSection = sections.findIndex(
+    section => 
+      section.level === 2 && 
+      section.header?.toLowerCase() === targetLanguage
   );
 
-  const result = filteredSections.reduce((acc, [lang, data]) => {
-    acc[lang] = data;
-    return acc;
-  }, {} as Record<string, LanguageSectionType>);
-  return result;
-}
-
-function initializeLanguageSection(
-  languageSections: Record<string, LanguageSectionType>,
-  language: string
-) {
-  if (!languageSections[language]) {
-    languageSections[language] = {
-      etymology: null,
-      ipa: null,
-      definitions: [],
-      related: {},
-    };
+  if (languageSection === -1) {
+    return null;
   }
-}
 
-function processSectionContent(
-  languageSection: LanguageSectionType,
-  section: Section,
-  sectionType: string
-) {
-  if (sectionType.includes('etymology')) {
-    languageSection.etymology = section.content;
-  } else if (sectionType.includes('pronunciation')) {
-    languageSection.ipa = processIPATemplates(section.content);
-  } else if (isDefinitionSection(sectionType)) {
-    languageSection.definitions.push({
-      partOfSpeech: section.header || '',
-      content: section.content,
-    });
-  } else if (isRelatedSection(sectionType) && section.header) {
-    languageSection.related[section.header] = section.content;
+  // Find the pronunciation section within the language section
+  let pronunciationContent = '';
+  
+  // Look through subsequent sections until we hit another level 2 section
+  for (let i = languageSection + 1; i < sections.length; i++) {
+    const section = sections[i];
+    
+    // Stop if we hit another language section
+    if (section.level === 2) {
+      break;
+    }
+
+    // Found pronunciation section
+    if (
+      section.level === 3 && 
+      section.header?.toLowerCase().includes('pronunciation')
+    ) {
+      pronunciationContent = section.content;
+      break;
+    }
   }
+
+  if (!pronunciationContent) {
+    return null;
+  }
+
+  return processIPATemplates(pronunciationContent);
 }
 
 function processIPATemplates(content: string): IPAType[] {
   const ipaTemplates = content.match(/\{\{IPA\|[^}]+\}\}/g) || [];
+  
   return ipaTemplates
     .map((template) => {
       const templateRegex =
@@ -106,33 +66,5 @@ function processIPATemplates(content: string): IPAType[] {
 
       return IPA;
     })
-    .filter((ipa) => ipa !== null);
-}
-
-
-
-function isDefinitionSection(sectionType: string): boolean {
-  return [
-    'definitions',
-    'noun',
-    'verb',
-    'adjective',
-    'adverb',
-    'pronoun',
-    'preposition',
-    'conjunction',
-    'interjection',
-  ].some((type) => sectionType.includes(type));
-}
-
-function isRelatedSection(sectionType: string): boolean {
-  return [
-    'related',
-    'synonyms',
-    'antonyms',
-    'derived',
-    'coordinate terms',
-    'hyponyms',
-    'hypernyms',
-  ].some((type) => sectionType.includes(type));
+    .filter((ipa): ipa is IPAType => ipa !== null);
 }

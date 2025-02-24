@@ -4,6 +4,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { getWord } from '@/lib/actions';
+import WordDisplay from './WordDisplay';
 import type { FormEvent } from 'react';
 import type { WordInfoType } from '@/types/wiktionary';
 
@@ -18,25 +19,18 @@ export default function WordLookup() {
   };
 
   return (
-    <section>
-      <form onSubmit={handleFormSubmit}>
-        <Label htmlFor='word'>Word:</Label>
-        <Input type='text' id='word' name='word' />
+    <section className='flex flex-col gap-4'>
+      <form
+        onSubmit={handleFormSubmit}
+        className='flex flex-row gap-2 place-content-center place-items-end'
+      >
+        <div>
+          <Label htmlFor='word'>Word</Label>
+          <Input type='text' id='word' name='word' />
+        </div>
         <Button type='submit'>Search</Button>
       </form>
-      {wordInfo && (
-        <div>
-          <h2>{wordInfo?.word}</h2>
-          <ul>
-            {wordInfo?.english?.ipa?.map((pronunciations, index) => (
-              <div key={`wordInfo?.word-${pronunciations.dialect}-${index}`}>
-                <span key={index}>{pronunciations.pronunciations.join(', ')}{' '}</span>
-                <span>({pronunciations.dialect})</span>
-              </div>
-            ))}
-          </ul>
-        </div>
-      )}
+      {wordInfo && <WordDisplay wordInfo={wordInfo} />}
     </section>
   );
 }
