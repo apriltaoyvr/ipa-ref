@@ -1,4 +1,4 @@
-export type WordInfoType = {
+export type APIReturnType = {
   word: string;
   ipa: IPAType[] | null;
 }

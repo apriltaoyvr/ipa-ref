@@ -13,7 +13,8 @@ export async function GET(
     const bot = await Mwn.init({
       apiUrl: 'https://en.wiktionary.org/w/api.php',
       OAuth2AccessToken: process.env.MW_CLIENT_ACCESS_TOKEN,
-      userAgent: 'Wiktionary Wrapper/1.0 (https://github.com/apriltaoyvr/) mwn/2.0.4',
+      userAgent:
+        'Wiktionary Wrapper/1.0 (https://github.com/apriltaoyvr/) mwn/2.0.4',
       defaultParams: {
         assert: 'user',
       },
@@ -35,19 +36,17 @@ export async function GET(
 
     const content = new bot.Wikitext(page.revisions[0].content);
     const sections = await content.parseSections();
-    
+
     const ipaData = extractIPA(sections);
 
     if (!ipaData) {
-      return new Response(
-        `No IPA data found for ${word}`,
-        { status: 404 }
-      );
+      console.error(`No IPA data found for ${word}`, ipaData);
+      return new Response(`No IPA data found for ${word}`, { status: 404 });
     }
 
     return Response.json({
       word: word,
-      ipa: ipaData
+      ipa: ipaData,
     });
   } catch (error) {
     console.error('Error processing request:', error);
