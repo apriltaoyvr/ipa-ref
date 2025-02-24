@@ -45,7 +45,10 @@ export async function GET(
       );
     }
 
-    return Response.json({ipaData});
+    return Response.json({
+      word: word,
+      ipa: ipaData
+    });
   } catch (error) {
     console.error('Error processing request:', error);
     return new Response('Error processing request', { status: 500 });

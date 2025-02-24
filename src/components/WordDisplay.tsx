@@ -2,6 +2,7 @@ import { WordInfoType } from "@/types/wiktionary";
 
 export default function WordDisplay({wordInfo}: {wordInfo: WordInfoType}) {
   const { word, ipa } = wordInfo;
+  console.log(ipa);
 
   if (!wordInfo) {
     return(
