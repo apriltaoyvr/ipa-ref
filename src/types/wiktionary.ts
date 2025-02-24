@@ -29,5 +29,5 @@ export type TemplateType = {
 export type IPAType = {
   language?: string;
   pronunciations: string[];
-  dialect?: string;
+  dialects?: string[];
 };

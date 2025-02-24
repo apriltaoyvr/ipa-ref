@@ -8,12 +8,14 @@ interface SectionWithLanguage extends Section {
   language: string;
 }
 
+// TODO: Filter by language
 export function groupByLanguage(
   sections: SectionWithLanguage[]
 ): Record<string, LanguageSectionType> {
   const languageSections: Record<string, LanguageSectionType> = {};
 
   sections.forEach((section) => {
+    // Section Level 2 is always a language section
     if (section.level === 2) {
       // Initialize language section
       initializeLanguageSection(languageSections, section.header || '');
@@ -89,27 +91,25 @@ function processIPATemplates(content: string): IPAType[] {
   return ipaTemplates
     .map((template) => {
       const templateRegex =
-        /\{\{IPA\|([^|]+)\|((?:[^|}]+\|)*?)(?:a=([^|}]+))?\}\}/;
+        /\{\{IPA\|([^|]+)\|((?:\/[^|]+\/|\[[^|]+\])(?:\|(?:\/[^|]+\/|\[[^|]+\]))*)\s*(?:\|a=([^}]+))?\}\}/;
       const matches = template.match(templateRegex);
 
       if (!matches) return null;
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const [, _lang, pronunciationsStr, dialect] = matches;
+      const [, _lang, pronunciationsStr, dialectStr] = matches;
 
       const IPA: IPAType = {
-        pronunciations: pronunciationsStr
-          .split('|')
-          .filter((p) => p.trim())
-          .map((p) => p.trim()),
-        dialect,
+        pronunciations: pronunciationsStr.split('|').map((p) => p.trim()),
+        dialects: dialectStr ? dialectStr.split(',').map((d) => d.trim()) : [],
       };
 
       return IPA;
     })
-    .filter((ipa) => ipa !== null)
-    .flat();
+    .filter((ipa) => ipa !== null);
 }
+
+
 
 function isDefinitionSection(sectionType: string): boolean {
   return [
