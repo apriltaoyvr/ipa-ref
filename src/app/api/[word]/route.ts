@@ -1,7 +1,7 @@
 import { Mwn } from 'mwn';
 import { groupByLanguage, formatLanguageSections } from '../wiktionaryHelpers';
 
-export const bot = await Mwn.init({
+const bot = await Mwn.init({
   apiUrl: 'https://en.wiktionary.org/w/api.php',
   OAuth2AccessToken: process.env.MW_CLIENT_ACCESS_TOKEN,
   userAgent:
