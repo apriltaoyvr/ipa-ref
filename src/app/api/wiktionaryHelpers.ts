@@ -7,8 +7,8 @@ import type { IPAType } from '@/types/wiktionary';
 export function extractIPA(sections: Section[]): IPAType[] | null {
   // Find the index of the first English section
   const languageSection = sections.findIndex(
-    section => section.level === 2 && 
-    section.header?.toLowerCase() === 'english'
+    (section) =>
+      section.level === 2 && section.header?.toLowerCase() === 'english',
   );
 
   if (languageSection === -1) return null;
@@ -21,7 +21,7 @@ export function extractIPA(sections: Section[]): IPAType[] | null {
     if (section.level === 2) break;
     // All pronunciation sections are level 3 and contain the word "pronunciation"
     if (
-      section.level === 3 && 
+      section.level === 3 &&
       section.header?.toLowerCase().includes('pronunciation')
     ) {
       ipaContent = section.content;
@@ -38,7 +38,7 @@ export function extractIPA(sections: Section[]): IPAType[] | null {
  */
 function processEnglishIPATemplates(content: string): IPAType[] {
   const ipaTemplates = content.match(/\{\{IPA\|[^}]+\}\}/g) || [];
-  
+
   return ipaTemplates
     .map((template) => {
       const templateRegex =
@@ -46,7 +46,7 @@ function processEnglishIPATemplates(content: string): IPAType[] {
       const matches = template.match(templateRegex);
 
       if (!matches) return null;
-      
+
       const [, , pronunciationsStr, dialectStr] = matches;
 
       const IPA: IPAType = {

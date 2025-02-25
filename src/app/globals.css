@@ -54,8 +54,8 @@
   --accent-foreground: hsl(240, 20%, 10%);
   --destructive: hsl(0, 100%, 40%);
   --destructive-foreground: hsl(0, 100%, 95%);
-  --border: oklch(0.811 0.111 293.571 / 0.25);
-  --input: oklch(0.894 0.057 293.283 / 0.25);
+  --border: oklch(0.894 0.057 293.283 / 0.15);
+  --input: oklch(0.894 0.057 293.283 / 0.15);
   --ring: hsl(248, 100%, 70%);
   --chart-1: hsl(248, 100%, 80%);
   --chart-2: hsl(240, 50%, 80%);
@@ -109,5 +109,33 @@
   }
   body {
     @apply bg-background text-foreground;
+    background-image:
+      radial-gradient(
+        circle at 7% 81%,
+        hsla(172, 91%, 91%, 1) 16%,
+        transparent 53%
+      ),
+      radial-gradient(
+        circle at 5% 1%,
+        hsla(238, 76%, 61%, 1) 7%,
+        transparent 84%
+      ),
+      radial-gradient(
+        circle at 39% 52%,
+        hsla(137, 93%, 64%, 1) 6%,
+        transparent 68%
+      ),
+      radial-gradient(
+        circle at 11% 29%,
+        hsla(201, 97%, 75%, 1) 8%,
+        transparent 74%
+      ),
+      radial-gradient(
+        circle at 90% 50%,
+        hsla(106, 94%, 89%, 1) 2%,
+        transparent 85%
+      );
+    background-size: cover;
+    background-repeat: no-repeat;
   }
 }

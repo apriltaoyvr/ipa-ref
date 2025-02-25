@@ -16,8 +16,8 @@ export default function Error({
   }, [error]);
 
   return (
-    <main className='min-h-screen flex flex-col place-content-center place-items-center'>
-      <h1 className='scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-4'>
+    <main className='flex flex-col place-content-center place-items-center'>
+      <h1 className='mb-4 scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl'>
         Something went wrong!
       </h1>
       <Button
