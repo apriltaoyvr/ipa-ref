@@ -129,7 +129,7 @@ export default function WordLookup() {
                   {state.wiktionary.map((entry, index) => (
                     <li key={index.toString() + entry.dialects}>
                       <span>{entry.pronunciations.join(', ')} </span>
-                      <span className='text-secondary-foreground'>
+                      <span className='text-secondary-foreground/50 font-semibold'>
                         {entry.dialects && `(${entry.dialects?.join(', ')})`}
                       </span>
                     </li>
@@ -153,18 +153,18 @@ export default function WordLookup() {
               </div>
             )}
           </CardContent>
-          <CardFooter className='flex flex-row gap-1 text-muted-foreground text-sm place-self-end'>
+          <CardFooter className='flex flex-row gap-1 text-sm place-self-end'>
             {'word' in state && (
               <>
                 <Link
                   href={`https://en.wiktionary.org/wiki/${state.word}`}
-                  className='text-accent hover:text-accent/90 transition-colors'
+                  className='text-muted hover:text-accent/90 transition-colors'
                 >
                   WI
                 </Link>
                 <Link
                   href={`https://www.merriam-webster.com/dictionary/${state.word}`}
-                  className='text-accent hover:text-accent/90 transition-colors'
+                  className='text-muted hover:text-accent/90 transition-colors'
                 >
                   MW
                 </Link>
