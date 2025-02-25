@@ -8,22 +8,12 @@ const baseUrl =
     ? 'https://ipa-ref.vercel.app'
     : 'http://localhost:3000';
 
-export type WordLookupErrorType = {
-  error: boolean;
-  status: number;
-  message: string;
-};
-
 export async function fetchWiktionaryByWord(
-  word: string
-): Promise<APIReturnType | WordLookupErrorType> {
+  word: string,
+): Promise<APIReturnType | null> {
   const response = await fetch(`${baseUrl}/api/${word.toLowerCase()}`);
   if (!response.ok) {
-    return {
-      error: true,
-      message: 'Failed to fetch word data from Wiktionary.\n',
-      status: response.status,
-    };
+    return null;
   }
   const data = response.json();
   return data;
@@ -32,19 +22,15 @@ export async function fetchWiktionaryByWord(
 // NOTE: Wikitext is too painful to parse. Let's use a dictionary API (Merriam-Webster) for additional word info.
 // https://dictionaryapi.com/products/json
 export async function fetchWordDefinition(
-  word: string
-): Promise<IMerriamWebster[] | WordLookupErrorType> {
+  word: string,
+): Promise<IMerriamWebster[] | null> {
   const response = await fetch(
     `https://www.dictionaryapi.com/api/v3/references/learners/json/${word.toLowerCase()}?key=${
       process.env.MERRIAM_WEBSTER_API_KEY
-    }`
+    }`,
   );
   if (!response.ok) {
-    return {
-      error: true,
-      message: 'Failed to fetch word data from Merriam-Webster.\n',
-      status: response.status,
-    };
+    return null;
   }
   return response.json();
 }

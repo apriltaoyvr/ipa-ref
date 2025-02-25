@@ -1,14 +1,25 @@
-import WordLookup from '@/components/WordInfo/WordLookup';
+import Link from 'next/link';
+import WordLookup from '@/components/WordLookup/WordLookup';
 
 export default function Home() {
   return (
-    <main className='flex flex-col place-content-start place-items-center h-screen p-4'>
-      <hgroup className='mb-4'>
-        <h1 className='scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-2'>
-          IPA Reference
-        </h1>
-      </hgroup>
+    <>
+      <header className='mb-8'>
+        <hgroup className='mb-4 text-center'>
+          <h1 className='my-2 scroll-m-20 text-4xl font-bold tracking-tight lg:text-5xl'>
+            IPA Reference
+          </h1>
+          <span className='my-2 scroll-m-20 text-lg tracking-tight text-secondary-foreground/90 lg:text-xl'>
+            /ˌaɪ̯.pʰiːˈeɪ̯ˈɹɛf.(ə)ɹəns/
+          </span>
+        </hgroup>
+        <aside className='mb-4'>
+          <p>
+            A site for looking up IPA transcriptions of English words.
+          </p>
+        </aside>
+      </header>
       <WordLookup />
-    </main>
+    </>
   );
 }
