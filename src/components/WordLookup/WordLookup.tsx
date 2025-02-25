@@ -1,6 +1,7 @@
 'use client';
 import { useActionState } from 'react';
 import Link from 'next/link';
+import { clsx } from 'clsx';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -23,39 +24,7 @@ type WordData = {
 };
 
 export default function WordLookup() {
-  const handleFormSubmit = async (
-    state: WordData,
-    payload: FormData,
-  ): Promise<WordData> => {
-    const inputWord = payload.get('word') as string;
-    const [wiktionaryData, merriamWebData] = await Promise.all([
-      fetchWiktionaryByWord(inputWord),
-      fetchWordDefinition(inputWord),
-    ]);
-
-    const response: WordData = {
-      word: payload.get('word') as string,
-      wiktionary: wiktionaryData?.ipa ?? null,
-      merriam: merriamWebData,
-    };
-
-    console.log(response);
-
-    return response;
-  };
-
-  const [state, formAction, isPending] = useActionState(handleFormSubmit, {
-    word: 'Example',
-    merriam: [
-      {
-        hwi: { hw: 'example', prs: [{ ipa: 'ˈɛɡzæmpəl' }] },
-        shortdef: [
-          'one that serves as a pattern to be imitated or not to be imitated',
-        ],
-      },
-    ],
-    wiktionary: null,
-  });
+  const [state, formAction, isPending] = useActionState(handleFormSubmit, defaultState);
 
   return (
     <section className='flex flex-col place-content-center place-items-center'>
@@ -73,10 +42,18 @@ export default function WordLookup() {
           Search
         </Button>
       </form>
-      <section className='flex min-w-lg flex-col p-4'>
-        <Card className='gap-2'>
+      <section className='flex flex-col p-4 lg:min-w-lg'>
+        <Card
+          className={clsx('max-h-[50vh] gap-2 overflow-y-auto', {
+            'border-red-400/75': !state.merriam || !state.merriam[0].shortdef,
+          })}
+        >
           <CardHeader className='mb-2'>
-            <CardTitle className='mb-2 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight capitalize first:mt-0'>
+            <CardTitle
+              className={
+                'mb-2 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight capitalize first:mt-0'
+              }
+            >
               {isPending
                 ? 'Loading...'
                 : state.word
@@ -87,7 +64,8 @@ export default function WordLookup() {
               <ul>
                 {!state.merriam || !state.merriam[0].shortdef
                   ? `Failed to fetch ${state.word ?? 'word'} from Merriam-Webster.`
-                  : state.merriam[0].shortdef && state.merriam[0].shortdef.length > 0 && state.merriam[0].shortdef.map((definition) => (
+                  : state.merriam[0].shortdef.length > 0 &&
+                    state.merriam[0].shortdef.map((definition) => (
                       <li key={definition} className='normal-case'>
                         {definition}
                       </li>
@@ -115,7 +93,8 @@ export default function WordLookup() {
                 </ul>
               </div>
             )}
-            {state.merriam && state.merriam[0].shortdef && state.merriam.length > 0 &&
+            {state.merriam &&
+              state.merriam[0].shortdef &&
               state?.merriam[0].hwi.prs &&
               state?.merriam[0].hwi.prs.length > 0 && (
                 <div>
@@ -138,13 +117,13 @@ export default function WordLookup() {
             {state.word && (
               <>
                 <Link
-                  href={`https://en.wiktionary.org/wiki/${state.word}`}
+                  href={`https://en.wiktionary.org/wiki/${state.word.toLowerCase()}`}
                   className='text-primary-foreground/50 transition-colors hover:text-accent/90'
                 >
                   WI
                 </Link>
                 <Link
-                  href={`https://www.merriam-webster.com/dictionary/${state.word}`}
+                  href={`https://www.merriam-webster.com/dictionary/${state.word.toLowerCase()}`}
                   className='text-primary-foreground/50 transition-colors hover:text-accent/90'
                 >
                   MW
@@ -157,3 +136,39 @@ export default function WordLookup() {
     </section>
   );
 }
+
+const defaultState = {
+  word: 'Example',
+  merriam: [
+    {
+      hwi: { hw: 'example', prs: [{ ipa: 'ˈɛɡzæmpəl' }] },
+      shortdef: [
+        'one that serves as a pattern to be imitated or not to be imitated',
+      ],
+    },
+  ],
+  wiktionary: null,
+}
+
+const handleFormSubmit = async (
+  state: WordData,
+  payload: FormData,
+): Promise<WordData> => {
+  const inputWord = payload.get('word') as string;
+  const [wiktionaryData, merriamWebData] = await Promise.all([
+    fetchWiktionaryByWord(inputWord),
+    fetchWordDefinition(inputWord),
+  ]);
+
+  // NOTE: Merriam-Webster returns an array of definitions for entries that don't return a result but resemble other words.
+  // This means there is extra type safety needed for conditional rendering.
+  const response: WordData = {
+    word: payload.get('word') as string,
+    wiktionary: wiktionaryData?.ipa ?? null,
+    merriam: merriamWebData,
+  };
+
+  console.log(response);
+
+  return response;
+};

@@ -7,6 +7,8 @@ I created this site for any other linguistics fans, researchers, or language lea
 
 ## TODO
 
-- Vowel reference on hover per IPA character
-- Sidebar for IPA keys
+- GraphQL endpoint
+- Add a UK dictionary
+- Character on hover per IPA character
+- Sidebar for IPA key reference
 - TTS (if there are options that don't cost $$$)

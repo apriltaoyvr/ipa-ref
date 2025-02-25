@@ -38,11 +38,11 @@ export default function RootLayout({
   return (
     <html lang='en' className='dark'>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}
       >
-        <div className='min-h-screen min-w-screen bg-background/95 flex flex-col place-content-start place-items-center '>
+        <div className='flex min-h-screen w-full flex-col flex-wrap place-content-center place-items-center bg-background/95 p-2 xl:min-w-screen'>
           <Navbar />
-          <main className='flex flex-col place-content-center place-items-center p-4 bg-background/80 rounded-lg shadow-md border border-muted/25 min-w-lg min-h-lg'>
+          <main className='flex flex-col flex-wrap place-content-center place-items-center rounded-lg border border-muted/25 bg-background/80 p-4 shadow-md'>
             {children}
           </main>
         </div>

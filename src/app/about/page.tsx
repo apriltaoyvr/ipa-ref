@@ -4,11 +4,11 @@ export default function AboutPage() {
   return (
     <>
       <hgroup>
-        <h1 className='my-2 mb-8 scroll-m-20 text-4xl font-bold tracking-tight lg:text-5xl'>
+        <h1 className='my-2 mb-8 scroll-m-20 text-3xl font-bold tracking-tight lg:text-5xl'>
           About this site
         </h1>
       </hgroup>
-      <article>
+      <article className='mx-2'>
         <section className='mb-2'>
           <h2 className='mb-2 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0'>
             What is this site for?

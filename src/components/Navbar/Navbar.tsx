@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Navbar() {
   return (
-    <nav className='mx-2 my-4 grid grid-cols-4 gap-8 place-self-center rounded-full border border-muted/25 bg-background px-4 py-2 text-muted-foreground'>
+    <nav className='mx-2 my-4 flex w-full lg:w-auto flex-row gap-2 place-self-center rounded-full border border-muted/25 bg-background px-4 py-2 text-muted-foreground lg:grid lg:grid-cols-4 lg:gap-8'>
       <Link
         href='/'
         className='w-full rounded-full bg-secondary/33 px-3 py-1 text-center font-semibold transition-colors hover:bg-secondary/60'

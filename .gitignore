@@ -21,6 +21,7 @@
 /build
 
 # misc
+.vscode/settings.json
 .DS_Store
 *.pem
 
