@@ -42,6 +42,7 @@ export default function AboutPage() {
               : a handy way to represent different sounds in different
               languages.
             </p>
+            <p>Note that this is a site for fetching transcriptions. If you want more detailed information on a word, I recommend that you click on the links in the bottom right of the info box to view the pages where the data is sourced from.</p>
           </article>
         </section>
         <section className='mb-2'>
@@ -50,8 +51,7 @@ export default function AboutPage() {
           </h2>
           <article className='flex max-w-prose flex-col gap-2'>
             <p>
-              I'd love to hear any suggestions you have and I love trying out
-              new things. Feel free to drop anything you'd like (or submit a PR
+              Feel free to drop suggestions you'd have (or submit a PR
               to add these things yourself!) on the site's{' '}
               <Link
                 href='https://github.com/apriltaoyvr/ipa-ref'

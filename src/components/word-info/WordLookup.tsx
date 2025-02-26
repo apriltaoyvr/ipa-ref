@@ -1,13 +1,11 @@
 'use client';
 import { useActionState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { fetchWiktionaryByWord, fetchWordDefinition } from '@/lib/actions';
-import { WordCard } from './Card/WordCard';
-import { SkeletonCard } from './Card/SkeletonCard';
+import { WordCard } from './card/WordCard';
+import { SkeletonCard } from './card/SkeletonCard';
 import type { IPAType } from '@/types/wiktionary';
 import type { IMerriamWebster } from '@/types/merriam-webster';
+import { WordSearch } from './search/WordSearch';
 
 export type WordData = {
   word: string | undefined;
@@ -23,22 +21,9 @@ export default function WordLookup() {
 
   return (
     <section className='flex flex-col place-content-center place-items-center'>
-      <form
-        action={formAction}
-        className='mb-8 flex flex-row place-content-center place-items-end gap-2'
-      >
-        <div className='grid w-full max-w-sm place-items-center gap-1.5'>
-          <Label htmlFor='word' className='place-self-start'>
-            Word
-          </Label>
-          <Input type='text' id='word' name='word' className='bg-background' />
-        </div>
-        <Button type='submit' disabled={isPending}>
-          Search
-        </Button>
-      </form>
+      <WordSearch formAction={formAction} isPending={isPending} />
       <section className='flex flex-col p-4 lg:min-w-lg'>
-        {isPending ? <SkeletonCard /> : <WordCard state={state} /> }
+        {isPending ? <SkeletonCard /> : <WordCard state={state} />}
       </section>
     </section>
   );
@@ -51,10 +36,17 @@ const defaultState = {
       hwi: { hw: 'example', prs: [{ ipa: 'ˈɛɡzæmpəl' }] },
       shortdef: [
         'one that serves as a pattern to be imitated or not to be imitated',
+        'someone or something that is mentioned to help explain what you are saying or to show that a general statement is true',
+        'something or someone chosen from a group in order to show what the whole group is like',
       ],
     },
   ],
-  wiktionary: null,
+  wiktionary: {
+    ipa: [
+      { pronunciations: ['/ɪɡˈzɑːm.pəl/'], dialects: ['RP'] },
+      { pronunciations: ['/ɪɡˈzæm.pəl/', '[ɪɡˈzɛəmpəɫ]'], dialects: ['US'] },
+    ],
+  },
 };
 
 const handleFormSubmit = async (

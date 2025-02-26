@@ -16,17 +16,17 @@ export function SkeletonCard() {
           Loading
         </CardTitle>
         <CardDescription>
-          <Skeleton className='h-4 w-[400px]' />
+          <Skeleton className='h-4 w-[20rem]  md:w-[25rem]' />
         </CardDescription>
       </CardHeader>
       <CardContent className='flex flex-col gap-4'>
         <section className='flex flex-col gap-2'>
-          <Skeleton className='h-4 w-[250px]' />
-          <Skeleton className='h-4 w-[125px]' />
+          <Skeleton className='h-4 w-[18rem]' />
+          <Skeleton className='h-4 w-[8rem]' />
         </section>
         <section className='flex flex-col gap-2'>
-          <Skeleton className='h-4 w-[250px]' />
-          <Skeleton className='h-4 w-[125px]' />
+          <Skeleton className='h-4 w-[18rem]' />
+          <Skeleton className='h-4 w-[8rem]' />
         </section>
       </CardContent>
       <CardFooter className='flex flex-row gap-1 place-self-end'>

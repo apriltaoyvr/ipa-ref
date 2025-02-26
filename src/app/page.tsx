@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import WordLookup from '@/components/WordInfo/WordLookup';
+import WordLookup from '@/components/word-info/WordLookup';
 
 export default function Home() {
   return (
@@ -13,11 +13,6 @@ export default function Home() {
             /ˌaɪ̯.pʰiːˈeɪ̯ˈɹɛf.(ə)ɹəns/
           </span>
         </hgroup>
-        <aside className='mb-4'>
-          <p>
-            A site for looking up IPA transcriptions of English words.
-          </p>
-        </aside>
       </header>
       <WordLookup />
     </>
