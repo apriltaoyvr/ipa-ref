@@ -4,18 +4,22 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { fetchWiktionaryByWord, fetchWordDefinition } from '@/lib/actions';
-import { WordCard } from './WordCard';
+import { WordCard } from './Card/WordCard';
+import { SkeletonCard } from './Card/SkeletonCard';
 import type { IPAType } from '@/types/wiktionary';
 import type { IMerriamWebster } from '@/types/merriam-webster';
 
 export type WordData = {
   word: string | undefined;
-  wiktionary: {ipa: IPAType[] | null} | null;
+  wiktionary: { ipa: IPAType[] | null } | null;
   merriam: IMerriamWebster[] | null;
 };
 
 export default function WordLookup() {
-  const [state, formAction, isPending] = useActionState(handleFormSubmit, defaultState);
+  const [state, formAction, isPending] = useActionState(
+    handleFormSubmit,
+    defaultState,
+  );
 
   return (
     <section className='flex flex-col place-content-center place-items-center'>
@@ -34,7 +38,7 @@ export default function WordLookup() {
         </Button>
       </form>
       <section className='flex flex-col p-4 lg:min-w-lg'>
-        <WordCard state={state} isPending={isPending}/>
+        {isPending ? <SkeletonCard /> : <WordCard state={state} /> }
       </section>
     </section>
   );
@@ -51,7 +55,7 @@ const defaultState = {
     },
   ],
   wiktionary: null,
-}
+};
 
 const handleFormSubmit = async (
   state: WordData,
@@ -67,7 +71,7 @@ const handleFormSubmit = async (
   // This means there is extra type safety needed for conditional rendering.
   const response: WordData = {
     word: payload.get('word') as string,
-    wiktionary: {ipa: wiktionaryData?.ipa ?? null},
+    wiktionary: { ipa: wiktionaryData?.ipa ?? null },
     merriam: merriamWebData,
   };
 

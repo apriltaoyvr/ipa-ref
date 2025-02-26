@@ -2,13 +2,13 @@ import Link from 'next/link';
 
 export default function AboutPage() {
   return (
-    <>
+    <div className='flex flex-col gap-2'>
       <hgroup>
-        <h1 className='my-2 mb-8 scroll-m-20 text-3xl font-bold tracking-tight lg:text-5xl'>
+        <h1 className='mb-8 scroll-m-20 text-center text-3xl font-bold tracking-tight lg:text-5xl'>
           About this site
         </h1>
       </hgroup>
-      <article className='mx-2'>
+      <article className='flex flex-col gap-2'>
         <section className='mb-2'>
           <h2 className='mb-2 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0'>
             What is this site for?
@@ -65,7 +65,7 @@ export default function AboutPage() {
         </section>
         <section className='mb-2'>
           <h2 className='mb-2 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0'>
-            Who I am?
+            Who am I?
           </h2>
           <article className='flex max-w-prose flex-col gap-2'>
             <p>
@@ -75,6 +75,6 @@ export default function AboutPage() {
           </article>
         </section>
       </article>
-    </>
+    </div>
   );
 }

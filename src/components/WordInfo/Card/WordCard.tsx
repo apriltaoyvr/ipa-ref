@@ -8,18 +8,19 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import type { WordData } from './WordLookup';
+import type { WordData } from '../WordLookup';
 
-export function WordCard({state, isPending}: {state: WordData, isPending: boolean}) {
+export function WordCard({ state }: { state: WordData }) {
   const { merriam } = state;
   const { word } = state;
   const wiktionary = state.wiktionary?.ipa ?? null;
-  const merriamPrs = merriam?.flatMap((entry) => entry?.hwi?.prs).filter((x) => x?.ipa) ?? null;
+  const merriamPrs =
+    merriam?.flatMap((entry) => entry?.hwi?.prs).filter((x) => x?.ipa) ?? null;
 
   return (
     <Card
       className={clsx('max-h-[50vh] gap-2 overflow-y-auto', {
-        'border-red-400/75': !merriam || !merriam[0].shortdef,
+        'border-red-400/75': !merriam && !wiktionary,
       })}
     >
       <CardHeader className='mb-2'>
@@ -28,7 +29,7 @@ export function WordCard({state, isPending}: {state: WordData, isPending: boolea
             'mb-2 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight capitalize first:mt-0'
           }
         >
-          {isPending ? 'Loading...' : word ? word : 'Word not found'}
+          {word ? word : 'Word not found'}
         </CardTitle>
         <CardDescription className='max-w-prose whitespace-pre-line'>
           <ul>
@@ -69,9 +70,12 @@ export function WordCard({state, isPending}: {state: WordData, isPending: boolea
               Merriam-Webster
             </h3>
             <ul>
-              {merriamPrs && merriamPrs.map((pronunciationEntry, index) => (
-                <li key={`merriam-entry-${index}-${word}`}>/{pronunciationEntry.ipa}/</li>
-              ))}
+              {merriamPrs &&
+                merriamPrs.map((pronunciationEntry, index) => (
+                  <li key={`merriam-entry-${index}-${word}`}>
+                    /{pronunciationEntry.ipa}/
+                  </li>
+                ))}
             </ul>
           </div>
         )}

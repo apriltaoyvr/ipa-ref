@@ -40,9 +40,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}
       >
-        <div className='flex min-h-screen w-full flex-col flex-wrap place-content-center place-items-center bg-background/95 p-2 xl:min-w-screen'>
+        <div className='flex min-h-screen w-full flex-col flex-wrap content-center justify-start bg-background/80 lg:justify-center p-2'>
           <Navbar />
-          <main className='flex flex-col flex-wrap place-content-center place-items-center rounded-lg border border-muted/25 bg-background/80 p-4 shadow-md'>
+          <main className='flex flex-col flex-wrap place-content-center place-items-center rounded-lg border border-muted/25 bg-background/80 m-2 p-4 lg:p-8 shadow-md'>
             {children}
           </main>
         </div>
