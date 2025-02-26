@@ -4,7 +4,6 @@ export type APIReturnType = {
 }
 
 export type IPAType = {
-  language?: string;
   pronunciations: string[];
   dialects?: string[];
 };

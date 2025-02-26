@@ -16,7 +16,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <main className='flex flex-col place-content-center place-items-center'>
+    <main className='flex flex-col place-content-center place-items-center p-4'>
       <h1 className='mb-4 scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl'>
         Something went wrong!
       </h1>

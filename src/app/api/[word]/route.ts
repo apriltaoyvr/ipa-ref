@@ -44,6 +44,9 @@ export async function GET(
       return new Response(`No IPA data found for ${word}`, { status: 404 });
     }
 
+    // For troubleshooting; pre-parsed results
+    // return Response.json(sections);
+
     return Response.json({
       word: word,
       ipa: ipaData,

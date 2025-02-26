@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import WordLookup from '@/components/WordLookup/WordLookup';
+import WordLookup from '@/components/WordInfo/WordLookup';
 
 export default function Home() {
   return (
