@@ -54,6 +54,7 @@ const handleFormSubmit = async (
   payload: FormData,
 ): Promise<WordData> => {
   const inputWord = payload.get('word') as string;
+  if (!inputWord) return state;
   const [wiktionaryData, merriamWebData] = await Promise.all([
     fetchWiktionaryByWord(inputWord),
     fetchWordDefinition(inputWord),

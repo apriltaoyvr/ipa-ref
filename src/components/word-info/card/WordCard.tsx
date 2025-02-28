@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import type { WordData } from '../WordLookup';
 
 export function WordCard({ state }: { state: WordData }) {
@@ -19,14 +20,17 @@ export function WordCard({ state }: { state: WordData }) {
 
   return (
     <Card
-      className={clsx('max-h-[50vh] gap-2 overflow-y-auto', {
-        'border-red-400/75': !merriam && !wiktionary,
-      })}
+      className={clsx(
+        'max-h-[50vh] gap-2 overflow-y-auto rounded-sm border-2 py-0 pt-6',
+        {
+          'border-destructive-400/75': !merriam && !wiktionary,
+        },
+      )}
     >
-      <CardHeader className='mb-2'>
+      <CardHeader className='mb-2 '>
         <CardTitle
           className={
-            'mb-2 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight capitalize first:mt-0'
+            'mb-2 scroll-m-20 border-b-2 pb-2 font-title text-3xl font-semibold tracking-tight capitalize first:mt-0'
           }
         >
           {word ? word : 'Word not found'}
@@ -44,10 +48,10 @@ export function WordCard({ state }: { state: WordData }) {
           </ul>
         </CardDescription>
       </CardHeader>
-      <CardContent className='flex flex-col gap-2'>
+      <CardContent className='flex flex-col gap-2 border-b-2 pb-8'>
         {wiktionary && wiktionary.length > 0 && (
           <div>
-            <h3 className='mb-2 scroll-m-20 text-2xl font-semibold tracking-tight'>
+            <h3 className='mb-2 scroll-m-20 text-2xl font-semibold tracking-tight font-title'>
               Wiktionary
             </h3>
             <ul>
@@ -66,7 +70,7 @@ export function WordCard({ state }: { state: WordData }) {
         )}
         {merriam && merriam[0].shortdef && (
           <div>
-            <h3 className='mb-2 scroll-m-20 text-2xl font-semibold tracking-tight'>
+            <h3 className='mb-2 scroll-m-20 text-2xl font-semibold tracking-tight font-title'>
               Merriam-Webster
             </h3>
             <ul>
@@ -80,21 +84,26 @@ export function WordCard({ state }: { state: WordData }) {
           </div>
         )}
       </CardContent>
-      <CardFooter className='flex flex-row gap-1 place-self-end text-sm'>
+      <CardFooter className='flex flex-row place-self-end gap-1 text-lg pb-2 px-2'>
         {word && (
           <>
-            <Link
-              href={`https://en.wiktionary.org/wiki/${word.toLowerCase()}`}
-              className='text-primary-foreground/50 transition-colors hover:text-accent/90'
-            >
-              WI
-            </Link>
-            <Link
-              href={`https://www.merriam-webster.com/dictionary/${word.toLowerCase()}`}
-              className='text-primary-foreground/50 transition-colors hover:text-accent/90'
-            >
-              MW
-            </Link>
+            <Button variant='ghost' asChild>
+              <Link
+                href={`https://en.wiktionary.org/wiki/${word.toLowerCase()}`}
+                className='font-semibold text-muted-foreground transition-colors'
+              >
+                Wiktionary
+              </Link>
+            </Button>
+            <Button variant='ghost' asChild>
+              <Link
+                href={`https://www.merriam-webster.com/dictionary/${word.toLowerCase()}`}
+                className='font-semibold text-muted-foreground transition-colors'
+              >
+                Merriam-Webster
+              </Link>
+            </Button>
+>>>>>>> 6549f12 (Mobile adjustments)
           </>
         )}
       </CardFooter>

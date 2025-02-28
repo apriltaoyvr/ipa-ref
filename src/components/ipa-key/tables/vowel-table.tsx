@@ -17,8 +17,8 @@ export function VowelTable() {
           <TableRow>
             <TableHead>Symbol</TableHead>
             <TableHead>Example</TableHead>
-            <TableHead>Symbol (with R)</TableHead>
-            <TableHead>Example (with R)</TableHead>
+            <TableHead>with R</TableHead>
+            <TableHead>Example</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

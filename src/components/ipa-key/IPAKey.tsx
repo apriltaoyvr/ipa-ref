@@ -6,8 +6,6 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-  SheetFooter,
-  SheetClose,
 } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { ConsonantTable } from './tables/consonant-table';
@@ -17,9 +15,9 @@ import { OtherTable } from './tables/other-table';
 export function IPAKey() {
   return (
     <Sheet>
-      {/* Identical classes to Button secondary */}
-      <SheetTrigger className='inline-flex h-9 items-center justify-center gap-2 rounded-full bg-secondary px-4 py-2 text-sm font-medium whitespace-nowrap text-secondary-foreground shadow-xs transition-[color,box-shadow] outline-none hover:cursor-pointer hover:bg-secondary/80 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 has-[>svg]:px-3 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*="size-"])]:size-4'>
-        IPA Key
+      {/* Identical classes to Button default */}
+      <SheetTrigger asChild>
+        <Button variant='outline' className='hover:cursor-pointer'>IPA Key</Button>
       </SheetTrigger>
       <SheetContent side='left'>
         <SheetHeader>
@@ -30,14 +28,14 @@ export function IPAKey() {
         </SheetHeader>
         <section className='p-2 overflow-y-auto'>
           <Tabs defaultValue='consonants'>
-            <TabsList className='mb-4 place-self-center'>
-              <TabsTrigger value='consonants' className='text-background'>
+            <TabsList className='mb-4 place-self-center sticky top-0 z-50'>
+              <TabsTrigger value='consonants'>
                 Consonants
               </TabsTrigger>
-              <TabsTrigger value='vowels' className='text-background'>
+              <TabsTrigger value='vowels'>
                 Vowels
               </TabsTrigger>
-              <TabsTrigger value='other' className='text-background'>
+              <TabsTrigger value='other'>
                 Other
               </TabsTrigger>
             </TabsList>

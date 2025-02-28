@@ -1,15 +1,16 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
-import './globals.css';
+import { Public_Sans, DM_Sans } from 'next/font/google';
+import { ThemeProvider } from '@/components/theme/theme-provider';
 import { Navbar } from '@/components/navbar';
+import './globals.css';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const publicSans = Public_Sans({
+  variable: '--font-public-sans',
   subsets: ['latin'],
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const dmSans = DM_Sans({
+  variable: '--font-dm-sans',
   subsets: ['latin'],
 });
 
@@ -36,16 +37,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' className='dark'>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}
-      >
-        <div className='flex min-h-screen w-full flex-col flex-wrap content-center justify-start bg-background/80 p-1 md:p-2 lg:justify-center'>
-          <Navbar />
-          <main className='m-2 flex flex-col flex-wrap place-content-center place-items-center rounded-lg border border-muted/25 bg-background/80 p-2 shadow-md md:p-4 lg:p-8'>
-            {children}
-          </main>
-        </div>
+    <html lang='en' suppressHydrationWarning>
+      <body className={`${publicSans.variable} ${dmSans.variable} min-h-screen antialiased`}>
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='system'
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className='flex min-h-screen w-full flex-col flex-wrap content-center justify-start mesh-gradient p-1 md:p-2 lg:justify-center'>
+            <Navbar />
+            <main className='m-2 flex flex-col flex-wrap place-content-center place-items-center rounded-lg border-3 border-foreground bg-background p-2 shadow-md md:p-4 lg:p-8'>
+              {children}
+            </main>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
