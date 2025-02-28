@@ -7,8 +7,5 @@ I created this site for any other linguistics fans, researchers, or language lea
 
 ## TODO
 
-- GraphQL endpoint
 - Add a UK dictionary
-- Character on hover per IPA character
-- Sidebar for IPA key reference
 - TTS (if there are options that don't cost $$$)
