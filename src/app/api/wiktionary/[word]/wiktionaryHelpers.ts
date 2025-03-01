@@ -45,7 +45,8 @@ function processEnglishIPATemplates(
     const parsedTemplates = ipaTemplatesArray
       .map((template) => {
         const templateRegex =
-          /\{\{IPA\|([^|]+)\|((?:\/[^|]+\/|\[[^|]+\])(?:\|(?:\/[^|]+\/|\[[^|]+\]))*)\s*(?:\|a=([^}]+))?\}\}/;
+        /\{\{IPA\|([^|]+)\|((?:\/[^|]+\/|\[[^|]+\])(?:\|(?:\/[^|]+\/|\[[^|]+\]))*)\s*(?:\|a=([^}]+))?(?:\|[^=}]+=[^|}]*)*\}\}/
+        ;
         const matches = template.match(templateRegex);
 
         if (!matches) return null;

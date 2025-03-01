@@ -1,6 +1,6 @@
 // route.ts
 import { Mwn } from 'mwn';
-import { extractIPA } from '../wiktionaryHelpers';
+import { extractIPA } from './wiktionaryHelpers';
 
 export async function GET(
   request: Request,

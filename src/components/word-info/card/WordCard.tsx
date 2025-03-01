@@ -10,13 +10,13 @@ import {
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import type { WordData } from '../WordLookup';
+import { IMerriamWebster } from '@/types/merriam-webster';
 
 export function WordCard({ state }: { state: WordData }) {
   const { merriam } = state;
-  const { word } = state;
+  const word = state?.word?.toLowerCase() ?? null;
   const wiktionary = state.wiktionary?.ipa ?? null;
-  const merriamPrs =
-    merriam?.flatMap((entry) => entry?.hwi?.prs).filter((x) => x?.ipa) ?? null;
+  const merriamPrs = parseMerriam(merriam, word);
 
   return (
     <Card
@@ -27,7 +27,7 @@ export function WordCard({ state }: { state: WordData }) {
         },
       )}
     >
-      <CardHeader className='mb-2 '>
+      <CardHeader className='mb-2'>
         <CardTitle
           className={
             'mb-2 scroll-m-20 border-b-2 pb-2 font-title text-3xl font-semibold tracking-tight capitalize first:mt-0'
@@ -36,8 +36,8 @@ export function WordCard({ state }: { state: WordData }) {
           {word ? word : 'Word not found'}
         </CardTitle>
         <CardDescription className='max-w-prose whitespace-pre-line'>
-          <ul>
-            {!merriam || !merriam[0].shortdef
+          <ul className='list-inside list-decimal'>
+            {!merriam || merriam.length === 0 || !merriam[0]?.shortdef
               ? `No definition found for ${word ?? 'word'} in Merriam-Webster.`
               : merriam[0].shortdef.length > 0 &&
                 merriam[0].shortdef.map((definition) => (
@@ -51,7 +51,7 @@ export function WordCard({ state }: { state: WordData }) {
       <CardContent className='flex flex-col gap-2 border-b-2 pb-8'>
         {wiktionary && wiktionary.length > 0 && (
           <div>
-            <h3 className='mb-2 scroll-m-20 text-2xl font-semibold tracking-tight font-title'>
+            <h3 className='mb-2 scroll-m-20 font-title text-2xl font-semibold tracking-tight'>
               Wiktionary
             </h3>
             <ul>
@@ -68,16 +68,16 @@ export function WordCard({ state }: { state: WordData }) {
             </ul>
           </div>
         )}
-        {merriam && merriam[0].shortdef && (
+        {merriam && merriam.length > 0 && merriam[0].shortdef && (
           <div>
-            <h3 className='mb-2 scroll-m-20 text-2xl font-semibold tracking-tight font-title'>
+            <h3 className='mb-2 scroll-m-20 font-title text-2xl font-semibold tracking-tight'>
               Merriam-Webster
             </h3>
             <ul>
               {merriamPrs &&
                 merriamPrs.map((pronunciationEntry, index) => (
                   <li key={`merriam-entry-${index}-${word}`}>
-                    /{pronunciationEntry.ipa}/
+                    {pronunciationEntry && `/${pronunciationEntry.ipa}/`}
                   </li>
                 ))}
             </ul>
@@ -103,10 +103,39 @@ export function WordCard({ state }: { state: WordData }) {
                 Merriam-Webster
               </Link>
             </Button>
->>>>>>> 6549f12 (Mobile adjustments)
           </>
         )}
       </CardFooter>
     </Card>
   );
+}
+
+function parseMerriam(merriamArray: IMerriamWebster[] | null, word: string | null) {
+  if (!word) return null;
+  if (!merriamArray || merriamArray.length === 0) return null;
+
+  const regex = /^[A-Za-z0-9]+(:[0-9]+)?$/
+
+  // Ensure the results match the word exactly (MW returns related words), then return prs or altprs which contain IPA transcriptions
+  const wordsThatMatch = merriamArray?.filter(({ meta }) => word && meta.id.match(regex)).flatMap(({hwi}) => hwi.prs || hwi.altprs || []);
+
+  if (wordsThatMatch.length === 0) return null;
+
+  // Remove duplicates
+  const set = new Set(wordsThatMatch);
+  const ipaMap = new Map();
+
+  set.forEach(item => {
+    const key = item.ipa;
+    
+    if (!ipaMap.has(key)) {
+      ipaMap.set(key, { ...item });
+    } else {
+      ipaMap.set(key, { ...ipaMap.get(key), ...item });
+    }
+  });
+
+  const results = Array.from(ipaMap.values());
+
+  return [...results];
 }

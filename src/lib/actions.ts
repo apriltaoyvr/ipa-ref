@@ -11,7 +11,7 @@ const baseUrl =
 export async function fetchWiktionaryByWord(
   word: string,
 ): Promise<APIReturnType | null> {
-  const response = await fetch(`${baseUrl}/api/${word.toLowerCase()}`);
+  const response = await fetch(`${baseUrl}/api/wiktionary/${word.toLowerCase()}`);
   if (!response.ok) {
     return null;
   }

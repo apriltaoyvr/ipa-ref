@@ -3,9 +3,10 @@ import { useActionState } from 'react';
 import { fetchWiktionaryByWord, fetchWordDefinition } from '@/lib/actions';
 import { WordCard } from './card/WordCard';
 import { SkeletonCard } from './card/SkeletonCard';
+import { WordSearch } from './search/WordSearch';
+import { defaultState } from './defaultState';
 import type { IPAType } from '@/types/wiktionary';
 import type { IMerriamWebster } from '@/types/merriam-webster';
-import { WordSearch } from './search/WordSearch';
 
 export type WordData = {
   word: string | undefined;
@@ -14,7 +15,7 @@ export type WordData = {
 };
 
 export default function WordLookup() {
-  const [state, formAction, isPending] = useActionState(
+  const [state, formAction, isPending] = useActionState<WordData, FormData>(
     handleFormSubmit,
     defaultState,
   );
@@ -28,26 +29,6 @@ export default function WordLookup() {
     </section>
   );
 }
-
-const defaultState = {
-  word: 'Example',
-  merriam: [
-    {
-      hwi: { hw: 'example', prs: [{ ipa: 'ˈɛɡzæmpəl' }] },
-      shortdef: [
-        'one that serves as a pattern to be imitated or not to be imitated',
-        'someone or something that is mentioned to help explain what you are saying or to show that a general statement is true',
-        'something or someone chosen from a group in order to show what the whole group is like',
-      ],
-    },
-  ],
-  wiktionary: {
-    ipa: [
-      { pronunciations: ['/ɪɡˈzɑːm.pəl/'], dialects: ['RP'] },
-      { pronunciations: ['/ɪɡˈzæm.pəl/', '[ɪɡˈzɛəmpəɫ]'], dialects: ['US'] },
-    ],
-  },
-};
 
 const handleFormSubmit = async (
   state: WordData,
@@ -70,3 +51,4 @@ const handleFormSubmit = async (
 
   return response;
 };
+
