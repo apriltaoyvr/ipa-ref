@@ -1,5 +1,4 @@
-import Link from 'next/link';
-import WordLookup from '@/components/word-info/WordLookup';
+import WordInfo from '@/components/word-info/word-info';
 
 export default function Home() {
   return (
@@ -14,7 +13,7 @@ export default function Home() {
           </span>
         </hgroup>
       </header>
-      <WordLookup />
+      <WordInfo />
     </>
   );
 }

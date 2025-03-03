@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import type { WordData } from '../WordLookup';
+import type { WordData } from '../word-info';
 import { IMerriamWebster } from '@/types/merriam-webster';
 
 export function WordCard({ state }: { state: WordData }) {

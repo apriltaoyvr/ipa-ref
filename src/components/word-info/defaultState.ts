@@ -1,5 +1,5 @@
 import type { IMerriamWebster } from '@/types/merriam-webster';
-import type { WordData } from './WordLookup';
+import type { WordData } from './word-info';
 
 const merriam: IMerriamWebster[] = [
   {
@@ -293,7 +293,7 @@ const merriam: IMerriamWebster[] = [
   },
 ];
 
-export const defaultState: WordData = {
+export const defaultWordLookupState: WordData = {
   word: 'Example',
   merriam,
   wiktionary: {

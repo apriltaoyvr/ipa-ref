@@ -1,10 +1,10 @@
 'use client';
 import { useActionState } from 'react';
 import { fetchWiktionaryByWord, fetchWordDefinition } from '@/lib/actions';
-import { WordCard } from './card/WordCard';
-import { SkeletonCard } from './card/SkeletonCard';
-import { WordSearch } from './search/WordSearch';
-import { defaultState } from './defaultState';
+import { WordCard } from './card/word-card';
+import { SkeletonCard } from './card/word-card-skeleton';
+import { WordSearchForm } from './search/word-search-form';
+import { defaultWordLookupState } from './defaultState';
 import type { IPAType } from '@/types/wiktionary';
 import type { IMerriamWebster } from '@/types/merriam-webster';
 
@@ -14,15 +14,15 @@ export type WordData = {
   merriam: IMerriamWebster[] | null;
 };
 
-export default function WordLookup() {
+export default function WordInfo() {
   const [state, formAction, isPending] = useActionState<WordData, FormData>(
     handleFormSubmit,
-    defaultState,
+    defaultWordLookupState,
   );
 
   return (
     <section className='flex flex-col place-content-center place-items-center'>
-      <WordSearch formAction={formAction} isPending={isPending} />
+      <WordSearchForm formAction={formAction} isPending={isPending} />
       <section className='flex flex-col p-4 lg:min-w-lg'>
         {isPending ? <SkeletonCard /> : <WordCard state={state} />}
       </section>
