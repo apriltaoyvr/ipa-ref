@@ -49,7 +49,7 @@ export interface IMerriamWebster {
   }[];
   shortdef: string[];
 }
-type PronunciationObject = {
+export type PronunciationObject = {
   ipa: string;
   sound?: {
     audio: string;

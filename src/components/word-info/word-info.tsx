@@ -9,7 +9,7 @@ import type { IPAType } from '@/types/wiktionary';
 import type { IMerriamWebster } from '@/types/merriam-webster';
 
 export type WordData = {
-  word: string | undefined;
+  word: string;
   wiktionary: { ipa: IPAType[] | null } | null;
   merriam: IMerriamWebster[] | null;
 };
