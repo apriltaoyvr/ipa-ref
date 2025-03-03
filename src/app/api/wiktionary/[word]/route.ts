@@ -4,10 +4,10 @@ import { extractIPA } from './wiktionaryHelpers';
 
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ word: string }> }
+  { params }: { params: Promise<{ word: string }> },
 ) {
   try {
-    const word = (await params).word || 'word';
+    const word = (await params)?.word;
 
     // Initialize the appropriate Wiktionary bot
     const bot = await Mwn.init({
