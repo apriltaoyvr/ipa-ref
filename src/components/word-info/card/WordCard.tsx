@@ -114,7 +114,7 @@ function parseMerriam(merriamArray: IMerriamWebster[] | null, word: string | nul
   if (!word) return null;
   if (!merriamArray || merriamArray.length === 0) return null;
 
-  const regex = /^[A-Za-z0-9]+(:[0-9]+)?$/
+  const regex = new RegExp(`${word}+(:[0-9]+)?$`)
 
   // Ensure the results match the word exactly (MW returns related words), then return prs or altprs which contain IPA transcriptions
   const wordsThatMatch = merriamArray?.filter(({ meta }) => word && meta.id.match(regex)).flatMap(({hwi}) => hwi.prs || hwi.altprs || []);
@@ -136,6 +136,10 @@ function parseMerriam(merriamArray: IMerriamWebster[] | null, word: string | nul
   });
 
   const results = Array.from(ipaMap.values());
+
+  // console.log('Merriam Array', merriamArray);
+  // console.log('Words that match', wordsThatMatch);
+  // console.log('Filtered results', results);
 
   return [...results];
 }
