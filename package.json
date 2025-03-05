@@ -2,12 +2,22 @@
   "name": "ipa-ref",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@10.5.0+sha512.11106a5916c7406fe4b8cb8e3067974b8728f47308a4f5ac5e850304afa6f57e2847d7950dfe78877d8d36bfb401d381c4215db3a4c3547ffa63c14333a6fa51",
+  "packageManager": "pnpm@10.5.2",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "cypress"
+    ]
+  },
   "scripts": {
     "dev": "cross-env NODE_OPTIONS='--inspect' next dev --turbo",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cypress:open": "cypress open",
+    "e2e": "start-server-and-test start http://localhost:3000 \"cypress open --e2e\"",
+    "e2e:headless": "start-server-and-test start http://localhost:3000 \"cypress run --e2e\"",
+    "component": "cypress open --component",
+    "component:headless": "cypress run --component"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.6",
@@ -35,10 +45,12 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "cross-env": "^7.0.3",
+    "cypress": "^14.1.0",
     "eslint": "^9",
     "eslint-config-next": "15.2.0",
     "prettier": "^3.5.2",
     "prettier-plugin-tailwindcss": "^0.6.11",
+    "start-server-and-test": "^2.0.10",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

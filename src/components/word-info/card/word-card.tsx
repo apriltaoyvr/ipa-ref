@@ -44,7 +44,7 @@ export function WordCard({ state }: { state: WordData }) {
             {wordFound ? word : 'Word not found'}
           </h2>
         </CardTitle>
-        <CardDescription id='word-definition' className='max-w-prose whitespace-pre-line'>
+        <CardDescription data-test='word-definition' className='max-w-prose whitespace-pre-line'>
           {wordFound ? (
             <ul className='list-inside list-decimal'>
               {!merriamFound
@@ -66,11 +66,11 @@ export function WordCard({ state }: { state: WordData }) {
       </CardHeader>
       <CardContent className='flex flex-col gap-2 pb-8'>
         {wordFound && (
-          <section id='wiktionary-results'>
+          <section data-test='wiktionary-section'>
             <h3 className='mb-2 scroll-m-20 font-title text-2xl font-semibold tracking-tight'>
               Wiktionary
             </h3>
-            <ul>
+            <ul data-test='wiktionary-results'>
               {wiktionary.map((pronunciationEntry, index) => (
                 <li key={`wiktionary-entry-${index}-${word}`}>
                   <span>{pronunciationEntry.pronunciations.join(', ')} </span>
@@ -85,11 +85,11 @@ export function WordCard({ state }: { state: WordData }) {
           </section>
         )}
         {merriamFound && (
-          <section id='merriam-results'>
+          <section data-test='merriam-section'>
             <h3 className='mb-2 scroll-m-20 font-title text-2xl font-semibold tracking-tight'>
               Merriam-Webster
             </h3>
-            <ul>
+            <ul data-test='merriam-results'>
               {merriamPrs &&
                 merriamPrs.map((pronunciationEntry, index) => (
                   <li key={`merriam-entry-${index}-${word}`}>

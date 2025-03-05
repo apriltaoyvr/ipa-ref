@@ -17,6 +17,7 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: 'IPA Reference',
   description: 'A site for looking up English IPA keys.',
+  metadataBase: new URL('https://ipa-ref.vercel.app/'),
   keywords: [
     'IPA',
     'English',
