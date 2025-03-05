@@ -21,7 +21,7 @@ export function WordSearchForm({
         </Label>
         <Input type='text' id='word' name='word' placeholder='example' className='bg-background border-2 border-primary' />
       </div>
-      <Button type='submit' disabled={isPending}>
+      <Button type='submit' disabled={isPending} className='hover:cursor-pointer'>
         Search
       </Button>
     </form>

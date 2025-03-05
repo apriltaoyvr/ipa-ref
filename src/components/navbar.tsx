@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from './theme/theme-toggle';
-import { IPAKey } from './ipa-key/IPAKey';
+import { IPAKey } from './ipa-key/ipa-key';
 
 export function Navbar() {
   return (

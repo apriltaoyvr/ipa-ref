@@ -3,14 +3,14 @@ import { useActionState } from 'react';
 import { fetchWiktionaryByWord, fetchWordDefinition } from '@/lib/actions';
 import { WordCard } from './card/word-card';
 import { SkeletonCard } from './card/word-card-skeleton';
-import { WordSearchForm } from './search/word-search-form';
+import { WordSearchForm } from './form/word-search-form';
 import { defaultWordLookupState } from './defaultState';
-import type { IPAType } from '@/types/wiktionary';
+import type { WiktionaryIPAType } from '@/types/wiktionary';
 import type { IMerriamWebster } from '@/types/merriam-webster';
 
 export type WordData = {
   word: string;
-  wiktionary: { ipa: IPAType[] | null } | null;
+  wiktionary: { ipa: WiktionaryIPAType[] | null } | null;
   merriam: IMerriamWebster[] | null;
 };
 

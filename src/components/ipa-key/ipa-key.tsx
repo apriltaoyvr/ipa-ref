@@ -17,7 +17,7 @@ export function IPAKey() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant='outline' className='hover:cursor-pointer'>
+        <Button id='ipa-key-trigger' variant='outline' className='hover:cursor-pointer'>
           IPA Key
         </Button>
       </SheetTrigger>

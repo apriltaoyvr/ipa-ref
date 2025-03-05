@@ -32,17 +32,19 @@ export function WordCard({ state }: { state: WordData }) {
       )}
     >
       <CardHeader className='mb-2'>
-        <CardTitle
-          className={clsx(
-            'mb-2 scroll-m-20 border-b-2 pb-2 font-title text-3xl font-semibold tracking-tight capitalize first:mt-0',
-            {
-              'border-dashed': !wordFound,
-            },
-          )}
-        >
-          {wordFound ? word : 'Word not found'}
+        <CardTitle>
+          <h2
+            className={clsx(
+              'mb-2 scroll-m-20 border-b-2 pb-2 font-title text-3xl font-semibold tracking-tight capitalize first:mt-0',
+              {
+                'border-dashed': !wordFound,
+              },
+            )}
+          >
+            {wordFound ? word : 'Word not found'}
+          </h2>
         </CardTitle>
-        <CardDescription className='max-w-prose whitespace-pre-line'>
+        <CardDescription id='word-definition' className='max-w-prose whitespace-pre-line'>
           {wordFound ? (
             <ul className='list-inside list-decimal'>
               {!merriamFound
@@ -64,7 +66,7 @@ export function WordCard({ state }: { state: WordData }) {
       </CardHeader>
       <CardContent className='flex flex-col gap-2 pb-8'>
         {wordFound && (
-          <div>
+          <section id='wiktionary-results'>
             <h3 className='mb-2 scroll-m-20 font-title text-2xl font-semibold tracking-tight'>
               Wiktionary
             </h3>
@@ -80,10 +82,10 @@ export function WordCard({ state }: { state: WordData }) {
                 </li>
               ))}
             </ul>
-          </div>
+          </section>
         )}
         {merriamFound && (
-          <div>
+          <section id='merriam-results'>
             <h3 className='mb-2 scroll-m-20 font-title text-2xl font-semibold tracking-tight'>
               Merriam-Webster
             </h3>
@@ -95,7 +97,7 @@ export function WordCard({ state }: { state: WordData }) {
                   </li>
                 ))}
             </ul>
-          </div>
+          </section>
         )}
       </CardContent>
       <CardFooter

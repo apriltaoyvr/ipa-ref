@@ -1,9 +1,9 @@
-export type APIReturnType = {
+export type WikionaryReturnType = {
   word: string;
-  ipa: IPAType[] | null;
+  ipa: WiktionaryIPAType[] | null;
 }
 
-export type IPAType = {
+export type WiktionaryIPAType = {
   pronunciations: string[];
   dialects?: string[];
 };
