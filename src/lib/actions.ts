@@ -1,6 +1,6 @@
 'use server';
 
-import type { WiktionaryIPAType, WikionaryReturnType } from '@/types/wiktionary';
+import type { WikionaryReturnType } from '@/types/wiktionary';
 import type { IMerriamWebster } from '@/types/merriam-webster';
 
 const baseUrl =

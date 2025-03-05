@@ -8,7 +8,7 @@ import type { WiktionaryIPAType } from '@/types/wiktionary';
  * @returns {(WiktionaryIPAType[] | null)} - IPA data (IPA transcription, dialect)
  */
 export function extractIPA(sections: Section[]): WiktionaryIPAType[] | null {
-  let ipaContent = filterSections(sections);
+  const ipaContent = filterSections(sections);
   if (!ipaContent) return null;
   return processEnglishIPATemplates(ipaContent);
 }
@@ -29,7 +29,7 @@ function filterSections(sections: Section[]): string[] | null {
   if (languageSection === -1) return null;
 
   // Find the pronunciation (IPA) sections
-  let ipaContent = [];
+  const ipaContent = [];
   for (let i = languageSection + 1; i < sections.length; i++) {
     const section = sections[i];
     // Stop if we reach a new language section

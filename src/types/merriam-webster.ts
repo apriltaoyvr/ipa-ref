@@ -10,7 +10,7 @@ export interface IMerriamWebster {
     };
     highlight?: string;
     stems: string[];
-    "app-shortdef": {
+    'app-shortdef': {
       hw: string;
       fl: string;
       def: string[];
@@ -31,20 +31,28 @@ export interface IMerriamWebster {
     if: string;
   }[];
   def: {
-    sseq: [string, {
-      sn?: string;
-      sgram?: string;
-      dt?: [string, any][];
-    }][][];
+    sseq: [
+      string,
+      {
+        sn?: string;
+        sgram?: string;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        dt?: [string, any][];
+      },
+    ][][];
   }[];
   dros?: {
     drp: string;
     def: {
-      sseq: [string, {
-        sn?: string;
-        sgram?: string;
+      sseq: [
+        string,
+        {
+          sn?: string;
+          sgram?: string;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         dt?: [string, any][];
-      }][][];
+        },
+      ][][];
     }[];
   }[];
   shortdef: string[];
@@ -54,4 +62,4 @@ export type PronunciationObject = {
   sound?: {
     audio: string;
   };
-}
+};
