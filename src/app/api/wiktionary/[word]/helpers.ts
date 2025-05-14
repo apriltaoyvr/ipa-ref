@@ -1,4 +1,4 @@
-import { type Section } from 'mwn/build/wikitext';
+import type { Section } from 'mwn/build/wikitext';
 import type { WiktionaryIPAType } from '@/types/wiktionary';
 
 /**
@@ -20,7 +20,7 @@ export function extractIPA(sections: Section[]): WiktionaryIPAType[] | null {
  * @returns {(string[] | null)} - Wikitext of the English pronunciation sections as an array of strings
  */
 function filterSections(sections: Section[]): string[] | null {
-  // Find the first English section and work from there; we are assuming it will always have a section header level of 2
+  // Find the first English section and work from there; we are assuming languages will have a section header level of 2
   const languageSection = sections.findIndex(
     (section) =>
       section.level === 2 && section.header?.toLowerCase() === 'english',
@@ -28,8 +28,9 @@ function filterSections(sections: Section[]): string[] | null {
 
   if (languageSection === -1) return null;
 
-  // Find the pronunciation (IPA) sections
   const ipaContent = [];
+  
+  // Find the pronunciation (IPA) sections
   for (let i = languageSection + 1; i < sections.length; i++) {
     const section = sections[i];
     // Stop if we reach a new language section
@@ -64,6 +65,7 @@ function processEnglishIPATemplates(
     /* 
       Parse the IPA templates into an array of IPA objects
       Example: {{IPA|en|/ɪə̯/|;|[ɪː]|[iː.ə]|a=RP}} -> { pronunciations: ['/ɪə̯/','[ɪː]', '[iː.ə]'], dialects: ['RP'] }
+      NOTE: Sometimes the dialect key is attached to the enPR template instead; I'll add that as a consideration in the future for this parser
     */
     const parsedTemplates = ipaTemplatesArray
       .map((template) => {

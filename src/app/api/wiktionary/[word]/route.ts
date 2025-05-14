@@ -1,6 +1,6 @@
 // route.ts
 import { Mwn } from 'mwn';
-import { extractIPA } from './wiktionaryHelpers';
+import { extractIPA } from './helpers';
 
 /**
  * The API route for the Wiktionary fetcher and parser using Wikimedia's API and the mwn library

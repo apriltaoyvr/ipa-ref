@@ -1,21 +1,20 @@
 'use client';
 import { useActionState } from 'react';
 import { fetchWiktionaryByWord, fetchWordDefinition } from '@/lib/actions';
-import { WordCard } from './card/word-card';
-import { SkeletonCard } from './card/word-card-skeleton';
-import { WordSearchForm } from './form/word-search-form';
-import { defaultWordLookupState } from './defaultState';
+import { WordCard, SkeletonCard } from './word-card/word-card';
+import { WordSearchForm } from './search-form/search-form';
+import { defaultWordLookupState } from './default-data';
 import type { WiktionaryIPAType } from '@/types/wiktionary';
 import type { IMerriamWebster } from '@/types/merriam-webster';
 
-export type WordData = {
+export type WordDataType = {
   word: string;
   wiktionary: { ipa: WiktionaryIPAType[] | null } | null;
   merriam: IMerriamWebster[] | null;
 };
 
 export default function WordInfo() {
-  const [state, formAction, isPending] = useActionState<WordData, FormData>(
+  const [state, formAction, isPending] = useActionState<WordDataType, FormData>(
     handleFormSubmit,
     defaultWordLookupState,
   );
@@ -31,9 +30,9 @@ export default function WordInfo() {
 }
 
 const handleFormSubmit = async (
-  state: WordData,
+  state: WordDataType,
   payload: FormData,
-): Promise<WordData> => {
+): Promise<WordDataType> => {
   const inputWord = payload.get('word') as string;
   if (!inputWord) return state;
   const [wiktionaryData, merriamWebData] = await Promise.all([
@@ -43,7 +42,7 @@ const handleFormSubmit = async (
 
   // NOTE: Merriam-Webster returns an array of definitions for entries that don't return a result but resemble other words.
   // This means there is extra type safety needed for conditional rendering.
-  const response: WordData = {
+  const response: WordDataType = {
     word: payload.get('word') as string,
     wiktionary: { ipa: wiktionaryData?.ipa ?? null },
     merriam: merriamWebData,
