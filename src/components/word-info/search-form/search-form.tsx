@@ -19,7 +19,7 @@ export function WordSearchForm({
         <Label htmlFor='word' className='place-self-start'>
           Word
         </Label>
-        <Input type='text' id='word' name='word' placeholder='example' className='bg-background border-2 border-primary' />
+        <Input type='text' id='word' name='word' placeholder='example' className='bg-background border-2 border-primary focus-visible:border-primary' />
       </div>
       <Button type='submit' disabled={isPending} className='hover:cursor-pointer'>
         Search

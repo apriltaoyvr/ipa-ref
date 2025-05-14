@@ -107,19 +107,19 @@ export function WordCard({ state }: { state: WordDataType }) {
           { 'border-dashed': !wordFound },
         )}
       >
-        <Button variant='ghost' asChild>
+        <Button variant='link' asChild>
           <Link
             href={`https://en.wiktionary.org/wiki/${word.toLowerCase()}`}
-            className='font-semibold text-muted-foreground transition-colors'
+            className='font-semibold text-muted-foreground'
             target='_blank'
           >
             Wiktionary
           </Link>
         </Button>
-        <Button variant='ghost' asChild>
+        <Button variant='link' asChild>
           <Link
             href={`https://www.merriam-webster.com/dictionary/${word.toLowerCase()}`}
-            className='font-semibold text-muted-foreground transition-colors'
+            className='font-semibold text-muted-foreground'
             target='_blank'
           >
             Merriam-Webster
